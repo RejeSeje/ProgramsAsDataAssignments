@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "+JTFZf/Vkm5FLwsG9Z2GCniIxmLzLxpvNQaHk8OpfgQ3+iYp4CE9lCRVUr1c8WDNFA8pXhkDXobNzXkEfO67wg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\andre\\OneDrive\\Dokumenter\\ITU\\5th semester\\Programmer som data\\Assignments\\ConsoleApp1\\ConsoleApp1.fsproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\andre\\.nuget\\packages\\fsharp.core\\7.0.200\\fsharp.core.7.0.200.nupkg.sha512"
+  ],
+  "logs": []
+}
