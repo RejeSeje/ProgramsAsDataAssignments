@@ -1,0 +1,7 @@
+C:\Users\A485\ITU_5semester\PSD\Assignments\ProgramsAsDataAssignments\CSharp\CSharpPart\CSharpPart\bin\Debug\CSharpPart.exe
+C:\Users\A485\ITU_5semester\PSD\Assignments\ProgramsAsDataAssignments\CSharp\CSharpPart\CSharpPart\bin\Debug\CSharpPart.pdb
+C:\Users\A485\ITU_5semester\PSD\Assignments\ProgramsAsDataAssignments\CSharp\CSharpPart\CSharpPart\obj\Debug\CSharpPart.csproj.AssemblyReference.cache
+C:\Users\A485\ITU_5semester\PSD\Assignments\ProgramsAsDataAssignments\CSharp\CSharpPart\CSharpPart\obj\Debug\CSharpPart.csproj.SuggestedBindingRedirects.cache
+C:\Users\A485\ITU_5semester\PSD\Assignments\ProgramsAsDataAssignments\CSharp\CSharpPart\CSharpPart\obj\Debug\CSharpPart.csproj.CoreCompileInputs.cache
+C:\Users\A485\ITU_5semester\PSD\Assignments\ProgramsAsDataAssignments\CSharp\CSharpPart\CSharpPart\obj\Debug\CSharpPart.exe
+C:\Users\A485\ITU_5semester\PSD\Assignments\ProgramsAsDataAssignments\CSharp\CSharpPart\CSharpPart\obj\Debug\CSharpPart.pdb
