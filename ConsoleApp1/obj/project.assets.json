@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     "net7.0": {
-      "FSharp.Core/7.0.200": {
+      "FSharp.Core/7.0.0": {
         "type": "package",
         "compile": {
           "lib/netstandard2.1/FSharp.Core.dll": {
@@ -59,15 +59,15 @@
     }
   },
   "libraries": {
-    "FSharp.Core/7.0.200": {
-      "sha512": "NmgUnpNH6Zu9B0SPIhojyo38gnPdkdYFYQfbd6zosEH32kbGY/g/Klk7PfOWe1NAe/O1YOMmK9KhwQ2OWsWEbg==",
+    "FSharp.Core/7.0.0": {
+      "sha512": "8hzwUheAViWMAHWQTr6kR/19C4LhjZ4TlftKfNeZO9y7XnRUzLTK6FJS1C+0oObuUe0e4KndYxjWE+Zgea9YXQ==",
       "type": "package",
-      "path": "fsharp.core/7.0.200",
+      "path": "fsharp.core/7.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
-        "fsharp.core.7.0.200.nupkg.sha512",
+        "fsharp.core.7.0.0.nupkg.sha512",
         "fsharp.core.nuspec",
         "lib/netstandard2.0/FSharp.Core.dll",
         "lib/netstandard2.0/FSharp.Core.xml",
@@ -104,23 +104,23 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
-      "FSharp.Core >= 7.0.200"
+      "FSharp.Core >= 7.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\andre\\.nuget\\packages\\": {}
+    "C:\\Users\\A485\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\andre\\OneDrive\\Dokumenter\\ITU\\5th semester\\Programmer som data\\Assignments\\ConsoleApp1\\ConsoleApp1.fsproj",
+      "projectUniqueName": "C:\\Users\\A485\\ITU_5semester\\PSD\\Assignments\\ProgramsAsDataAssignments\\ConsoleApp1\\ConsoleApp1.fsproj",
       "projectName": "ConsoleApp1",
-      "projectPath": "C:\\Users\\andre\\OneDrive\\Dokumenter\\ITU\\5th semester\\Programmer som data\\Assignments\\ConsoleApp1\\ConsoleApp1.fsproj",
-      "packagesPath": "C:\\Users\\andre\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\andre\\OneDrive\\Dokumenter\\ITU\\5th semester\\Programmer som data\\Assignments\\ConsoleApp1\\obj\\",
+      "projectPath": "C:\\Users\\A485\\ITU_5semester\\PSD\\Assignments\\ProgramsAsDataAssignments\\ConsoleApp1\\ConsoleApp1.fsproj",
+      "packagesPath": "C:\\Users\\A485\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\A485\\ITU_5semester\\PSD\\Assignments\\ProgramsAsDataAssignments\\ConsoleApp1\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\andre\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\A485\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -128,7 +128,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\sdk\\7.0.203\\FSharp\\library-packs": {},
+        "C:\\Program Files\\dotnet\\sdk\\7.0.110\\FSharp\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -145,7 +145,7 @@
           "FSharp.Core": {
             "include": "Runtime, Compile, Build, Native, Analyzers, BuildTransitive",
             "target": "Package",
-            "version": "[7.0.200, )",
+            "version": "[7.0.0, )",
             "generatePathProperty": true
           }
         },
@@ -165,7 +165,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.110\\RuntimeIdentifierGraph.json"
       }
     }
   }

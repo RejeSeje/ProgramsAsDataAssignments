@@ -117,7 +117,3 @@ let rec differentiate a : aexpr =
     
     
     
-    
-    
-    
-    

@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "+JTFZf/Vkm5FLwsG9Z2GCniIxmLzLxpvNQaHk8OpfgQ3+iYp4CE9lCRVUr1c8WDNFA8pXhkDXobNzXkEfO67wg==",
+  "dgSpecHash": "KFXjitHZ1vFLtAuNiWrw3tuquORtMGxZ4ZQaglsvjQlLZ4Dt0SnBYzf7CMVW5A4N04GQBw3CZTcSDowlSc7ukQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\andre\\OneDrive\\Dokumenter\\ITU\\5th semester\\Programmer som data\\Assignments\\ConsoleApp1\\ConsoleApp1.fsproj",
+  "projectFilePath": "C:\\Users\\A485\\ITU_5semester\\PSD\\Assignments\\ProgramsAsDataAssignments\\ConsoleApp1\\ConsoleApp1.fsproj",
   "expectedPackageFiles": [
-    "C:\\Users\\andre\\.nuget\\packages\\fsharp.core\\7.0.200\\fsharp.core.7.0.200.nupkg.sha512"
+    "C:\\Users\\A485\\.nuget\\packages\\fsharp.core\\7.0.0\\fsharp.core.7.0.0.nupkg.sha512"
   ],
   "logs": []
 }
