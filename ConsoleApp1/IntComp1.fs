@@ -37,9 +37,14 @@ let e7 = Let("z", CstI 3, Let("y", Prim("+", Var "z", CstI 1), Prim("+", Var "z"
 let e8 = Let("z", Let("x", CstI 4, Prim("+", Var "x", CstI 5)), Prim("*", Var "z", CstI 2))
 let e9 = Let("z", CstI 3, Let("y", Prim("+", Var "z", CstI 1), Prim("+", Var "x", Var "y")))
 let e10 = Let("z", Prim("+", Let("x", CstI 4, Prim("+", Var "x", CstI 5)), Var "x"), Prim("*", Var "z", CstI 2))
-let e11 = Let([("x1",  Prim("+", CstI 5, CstI 7)); ("x2",  Prim("*", Var "x1", CstI 2))], Prim("+", Var "x1", Var "x2"))
+
+
+let e11 = Let([("x1",  Prim("+", CstI 5, CstI 7)); ("x2",  Prim("*", Var "x1", CstI 2))], Prim("+", Var "x1", Var "x2"));;
 
 let env = [("a", 3); ("c", 78); ("baf", 666); ("b", 111)];;
+
+//Exercise 2.4
+let e12 = Let([("x1", Prim("+", Var "x1", CstI 7))], Prim("+", Var "x1", CstI 8));;
 
 
 (* ---------------------------------------------------------------------- *)
@@ -224,10 +229,29 @@ let rec freevars e : string list =
     match e with
     | CstI i -> []
     | Var x  -> [x]
-    | Let(x, erhs, ebody) -> 
-          union (freevars erhs, minus (freevars ebody, [x]))
-    | Prim(ope, e1, e2) -> union (freevars e1, freevars e2);;
+    | Let(bindings, ebody) ->
+        let vars = List.map fst bindings in
+        let rhs_vars = List.collect (fun (x, erhs) -> freevars erhs) bindings in
+        let body_vars = freevars ebody in
+        
+        union (rhs_vars, minus (body_vars, vars))
+    | Prim(ope, e1, e2) -> union (freevars e1, freevars e2);;    
+    
+// let vars = List.map (fun (x, _) -> x) bindings in //list of variables in bindings
+// let free_bindings = List.fold (fun acc (x, expr) -> List.append acc (freevars expr)) [] bindings in //list of all free variables bindings
+// let free_body = List.filter (fun x -> not (List.contains x vars)) (freevars ebody) in //list of free variables in the body
+// let free_vars = List.append (List.filter (fun x -> not (List.contains x vars)) free_bindings) free_body in //list of free
+//
+// if List.exists (fun x -> List.contains x free_body) vars then
+//   free_body
+// else
+//   List.append free_bindings free_body
 
+// let e11 = Let([("x1",  Prim("+", CstI 5, CstI 7)); ("x2",  Prim("*", Var "x1", CstI 2))], Prim("+", Var "x1", Var "x2"));;
+// let e12 = Let([("x1", Prim("+", Var "x1", CstI 7))], Prim("+", Var "x1", CstI 8));;
+
+freevars e11
+freevars e12
 (* Alternative definition of closed *)
 
 let closed2 e = (freevars e = []);;
@@ -258,10 +282,41 @@ let rec tcomp (e : expr) (cenv : string list) : texpr =
     match e with
     | CstI i -> TCstI i
     | Var x  -> TVar (getindex cenv x)
-    | Let(x, erhs, ebody) -> 
-      let cenv1 = x :: cenv 
-      TLet(tcomp erhs cenv, tcomp ebody cenv1)
-    | Prim(ope, e1, e2) -> TPrim(ope, tcomp e1 cenv, tcomp e2 cenv);;
+    | Let(bindings, ebody) ->
+        let rec updateCenv bindings' cenv' =
+            match bindings' with
+            | [] -> cenv'
+            | (x, _) :: xs -> updateCenv xs (x :: cenv') 
+        
+        let cenv1 = updateCenv bindings cenv
+
+        let rec processBindings bindings' =
+            match bindings' with
+            | [] -> tcomp ebody cenv1
+            | (x, erhs) :: xs ->
+                let t_erhs = tcomp erhs cenv
+                let t_ebody = tcomp ebody cenv1
+                TLet(t_erhs, t_ebody)
+        
+        processBindings bindings
+        | Prim(ope, e1, e2) -> TPrim(ope, tcomp e1 cenv, tcomp e2 cenv);;
+
+
+// let rec compileBindings bindings' cenv' =
+//     match bindings' with
+//     | [] -> ([], cenv')
+//     | (x, erhs) :: xs ->
+//         let t_erhs = tcomp erhs cenv'
+//         let t_bindings, newCenv = compileBindings xs (x :: cenv')
+//         (t_erhs :: t_bindings, newCenv)
+//
+// let t_bindings, newCenv = compileBindings bindings cenv
+// let t_bindings_rev = List.rev t_bindings
+// let t_let = List.fold (fun acc x -> TLet(x, acc)) (TVar (List.length cenv)) t_bindings_rev
+// TLet(t_let, tcomp ebody newCenv)
+
+let expr1 = Let([("x", CstI 10); ("y", CstI 20)], Prim("+", Var "x", Var "y"));;
+tcomp expr1 []
 
 (* Evaluation of target expressions with variable indexes.  The
    run-time environment renv is a list of variable values (ints).  *)
