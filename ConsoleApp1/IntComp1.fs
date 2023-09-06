@@ -56,9 +56,15 @@ let rec eval e (env : (string * int) list) : int =
     | CstI i            -> i
     | Var x             -> lookup env x 
     | Let (bindings, ebody) -> 
-        match bindings with
-        [] -> eval ebody env
-        | x :: xs -> Let (fst x) = eval (snd x) env in eval xs env
+        let rec evalBindings env bindings' =
+            match bindings' with
+            | [] -> env
+            | (x, exp) :: xs -> 
+                let value = eval exp env
+                let newEnv = (x, value) :: env
+                evalBindings newEnv xs
+        let updatedEnv = evalBindings env bindings
+        eval ebody updatedEnv
     | Prim("+", e1, e2) -> eval e1 env + eval e2 env
     | Prim("*", e1, e2) -> eval e1 env * eval e2 env
     | Prim("-", e1, e2) -> eval e1 env - eval e2 env
