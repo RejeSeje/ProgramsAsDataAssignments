@@ -230,9 +230,15 @@ let rec freevars e : string list =
     | CstI i -> []
     | Var x  -> [x]
     | Let(bindings, ebody) ->
-        let vars = List.map fst bindings in
-        let rhs_vars = List.collect (fun (x, erhs) -> freevars erhs) bindings in
-        let body_vars = freevars ebody in
+        let vars = List.map fst bindings
+        let rhs_vars =
+            List.fold (fun (bound, free) (var, exp) ->
+                let newBound = var :: bound
+                let newFree = union (minus (freevars exp, bound), free)
+                (newBound, newFree)
+            ) ([], []) bindings |> snd
+            
+        let body_vars = freevars ebody
         
         union (rhs_vars, minus (body_vars, vars))
     | Prim(ope, e1, e2) -> union (freevars e1, freevars e2);;    
@@ -247,8 +253,8 @@ let rec freevars e : string list =
 // else
 //   List.append free_bindings free_body
 
-// let e11 = Let([("x1",  Prim("+", CstI 5, CstI 7)); ("x2",  Prim("*", Var "x1", CstI 2))], Prim("+", Var "x1", Var "x2"));;
-// let e12 = Let([("x1", Prim("+", Var "x1", CstI 7))], Prim("+", Var "x1", CstI 8));;
+let e11 = Let([("x1",  Prim("+", CstI 5, CstI 7)); ("x2",  Prim("*", Var "x1", CstI 2))], Prim("+", Var "x1", Var "x2"));;
+let e12 = Let([("x1", Prim("+", Var "x1", CstI 7))], Prim("+", Var "x1", CstI 8));;
 
 freevars e11
 freevars e12
