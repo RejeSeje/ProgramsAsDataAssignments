@@ -1,5 +1,7 @@
 ﻿module ConsoleApp1.IntComp1
 
+open Microsoft.CSharp.RuntimeBinder
+
 (* Programming language concepts for software developers, 2012-02-17 *)
 
 (* Evaluation, checking, and compilation of object language expressions *)
@@ -243,21 +245,13 @@ let rec freevars e : string list =
         union (rhs_vars, minus (body_vars, vars))
     | Prim(ope, e1, e2) -> union (freevars e1, freevars e2);;    
     
-// let vars = List.map (fun (x, _) -> x) bindings in //list of variables in bindings
-// let free_bindings = List.fold (fun acc (x, expr) -> List.append acc (freevars expr)) [] bindings in //list of all free variables bindings
-// let free_body = List.filter (fun x -> not (List.contains x vars)) (freevars ebody) in //list of free variables in the body
-// let free_vars = List.append (List.filter (fun x -> not (List.contains x vars)) free_bindings) free_body in //list of free
-//
-// if List.exists (fun x -> List.contains x free_body) vars then
-//   free_body
-// else
-//   List.append free_bindings free_body
 
 let e11 = Let([("x1",  Prim("+", CstI 5, CstI 7)); ("x2",  Prim("*", Var "x1", CstI 2))], Prim("+", Var "x1", Var "x2"));;
 let e12 = Let([("x1", Prim("+", Var "x1", CstI 7))], Prim("+", Var "x1", CstI 8));;
 
 freevars e11
 freevars e12
+
 (* Alternative definition of closed *)
 
 let closed2 e = (freevars e = []);;
@@ -291,38 +285,18 @@ let rec tcomp (e : expr) (cenv : string list) : texpr =
     | Let(bindings, ebody) ->
         let rec updateCenv bindings' cenv' =
             match bindings' with
-            | [] -> cenv'
-            | (x, _) :: xs -> updateCenv xs (x :: cenv') 
-        
-        let cenv1 = updateCenv bindings cenv
-
-        let rec processBindings bindings' =
-            match bindings' with
-            | [] -> tcomp ebody cenv1
+            | [] -> tcomp ebody cenv'
             | (x, erhs) :: xs ->
-                let t_erhs = tcomp erhs cenv
-                let t_ebody = tcomp ebody cenv1
-                TLet(t_erhs, t_ebody)
-        
-        processBindings bindings
-        | Prim(ope, e1, e2) -> TPrim(ope, tcomp e1 cenv, tcomp e2 cenv);;
-
-
-// let rec compileBindings bindings' cenv' =
-//     match bindings' with
-//     | [] -> ([], cenv')
-//     | (x, erhs) :: xs ->
-//         let t_erhs = tcomp erhs cenv'
-//         let t_bindings, newCenv = compileBindings xs (x :: cenv')
-//         (t_erhs :: t_bindings, newCenv)
-//
-// let t_bindings, newCenv = compileBindings bindings cenv
-// let t_bindings_rev = List.rev t_bindings
-// let t_let = List.fold (fun acc x -> TLet(x, acc)) (TVar (List.length cenv)) t_bindings_rev
-// TLet(t_let, tcomp ebody newCenv)
-
+                let cenv1 = x :: cenv'
+                TLet(tcomp erhs cenv', updateCenv xs cenv1)
+        updateCenv bindings cenv
+    | Prim(ope, e1, e2) -> TPrim(ope, tcomp e1 cenv, tcomp e2 cenv);;
+    
 let expr1 = Let([("x", CstI 10); ("y", CstI 20)], Prim("+", Var "x", Var "y"));;
+let expr2 = Let([("x1", Prim("+", CstI 2, CstI 5)); ("x2", Prim("+", Var "x1", CstI 7))], Prim("+", Var "x1", Var "x2"));; 
+
 tcomp expr1 []
+tcomp expr2 []
 
 (* Evaluation of target expressions with variable indexes.  The
    run-time environment renv is a list of variable values (ints).  *)
