@@ -375,7 +375,28 @@ type sinstr =
   | SMul                                (* pop args, push product *)
   | SPop                                (* pop value/unbind var   *)
   | SSwap;;                             (* exchange top and next  *)
- 
+  
+  
+// Exercise 2.4
+// sinstrToInt: sinstr -> int list
+let sinstrToInt (sinstr: sinstr) : int list =
+    let aux sinstr' list =
+        match sinstr' with
+        | SCstI i -> list @ [0; i]
+        | SVar x -> list @ [1; x]
+        | SAdd -> list @ [2]
+        | SSub -> list @ [3]
+        | SMul -> list @ [4]
+        | SPop -> list @ [5]
+        | SSwap -> list @ [6]
+        
+    aux sinstr [];;
+
+// assemble: sinstr list -> int list
+let assemble (list: sinstr list) : int list =    
+    List.fold (fun acc s -> acc @ (sinstrToInt s)) [] list;;
+
+
 let rec seval (inss : sinstr list) (stack : int list) =
     match (inss, stack) with
     | ([], v :: _) -> v
@@ -388,7 +409,6 @@ let rec seval (inss : sinstr list) (stack : int list) =
     | (SPop    :: insr,    _ :: stkr) -> seval insr stkr
     | (SSwap   :: insr, i2::i1::stkr) -> seval insr (i1::i2::stkr)
     | _ -> failwith "seval: too few operands on stack";;
-
 
 (* A compile-time variable environment representing the state of
    the run-time stack. *)

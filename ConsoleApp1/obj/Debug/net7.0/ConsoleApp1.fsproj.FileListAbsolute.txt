@@ -1,0 +1,4 @@
+C:\Users\A485\ITU_5semester\PSD\Assignments\ProgramsAsDataAssignments\ConsoleApp1\obj\Debug\net7.0\ConsoleApp1.fsproj.AssemblyReference.cache
+C:\Users\A485\ITU_5semester\PSD\Assignments\ProgramsAsDataAssignments\ConsoleApp1\obj\Debug\net7.0\ConsoleApp1.AssemblyInfoInputs.cache
+C:\Users\A485\ITU_5semester\PSD\Assignments\ProgramsAsDataAssignments\ConsoleApp1\obj\Debug\net7.0\ConsoleApp1.AssemblyInfo.fs
+C:\Users\A485\ITU_5semester\PSD\Assignments\ProgramsAsDataAssignments\ConsoleApp1\obj\Debug\net7.0\ConsoleApp1.fsproj.CoreCompileInputs.cache
