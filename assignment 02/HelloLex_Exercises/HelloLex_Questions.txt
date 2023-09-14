@@ -1,0 +1,16 @@
+Question 1)
+The RegEx involved:
+[0-9]
+Which means the RegEx is associated with the semantic 
+values of any ONE digit between 0 and 9.
+The RegEx will fail if it encounters anything else.
+
+
+Question 2)
+Generating the lexer of hello.fsl also generates the file hello.fs.
+
+There is 3 states by the automaton.
+
+
+Question 3+4+5)
+See .fs, .fsl, .exe files for hello, hello2 and hello3
