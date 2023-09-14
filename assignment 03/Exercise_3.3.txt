@@ -2,5 +2,13 @@ Exercise 3.3)
 Rightmost derivation of
 let z = (17) in z + 2 * 3 end EOF
 	Main
-	Expr EOF
-	LET NAME EQ
+A	Expr EOF
+F	LET z EQ Expr IN Expr END EOF
+G	LET z EQ Expr IN Expr TIMES Expr END EOF
+C	LET z EQ Expr IN Expr TIMES 3 END EOF
+H	LET z EQ Expr IN Expr PLUS Expr TIMES 3 END EOF
+C	LET z EQ Expr IN Expr PLUS 2 TIMES 3 END EOF
+B	LET z EQ Expr IN z PLUS 2 TIMES 3 END EOF
+E	LET z EQ LPAR Expr RPAR IN z PLUS 2 TIMES 3 END EOF
+C	LET z EQ LPAR 17 RPAR IN z PLUS 2 TIMES 3 END EOF
+	
