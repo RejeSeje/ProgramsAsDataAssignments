@@ -1,0 +1,6 @@
+Exercise 3.3)
+Rightmost derivation of
+let z = (17) in z + 2 * 3 end EOF
+	Main
+	Expr EOF
+	LET NAME EQ
