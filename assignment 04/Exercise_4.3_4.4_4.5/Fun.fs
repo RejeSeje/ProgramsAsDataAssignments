@@ -24,7 +24,7 @@ let rec lookup env x =
 
 type value = 
   | Int of int
-  | Closure of string * string * expr * value env       (* (f, x, fBody, fDeclEnv) *)
+  | Closure of string * (string list) * expr * value env       (* (f, x, fBody, fDeclEnv) *)
 
 let rec eval (e : expr) (env : value env) : int =
     match e with 
@@ -52,44 +52,29 @@ let rec eval (e : expr) (env : value env) : int =
       let b = eval e1 env
       if b<>0 then eval e2 env
       else eval e3 env
-    | Letfun(f, params, fBodies, letBody) ->
-      let tuples = List.zip params fBodies
-
-      let makeBodyClosureList list env =
-        match list with
-        | [] -> list
-        | x :: xs -> Closure(f, fst x, snd x, env) :: makeBodyClosureList xs env
-
-      let bodyEnvClosures = makeBodyClosureList tuples env
-      
-      let makeBodyEnv closures env =
-        match closures with
-        | [] -> env
-        | x :: xs -> (f, x) :: env
-
-      let bodyEnv = bodyEnvClosures env
+    | Letfun(f, params, fBody, letBody) ->
+      let bodyEnv = (f, Closure(f, params, fBody, env)) :: env
       eval letBody bodyEnv
 
-    | Call() ->
-    
-    | Call(Var f, eArg) -> 
+    | Call(Var f, eArgs) ->
       let fClosure = lookup env f
       match fClosure with
       | Closure (f, x, fBody, fDeclEnv) ->
-        let xVal = Int(eval eArg env)
-        let fBodyEnv = (x, xVal) :: (f, fClosure) :: fDeclEnv
-        eval fBody fBodyEnv
-      | _ -> failwith "eval Call: not a function"
+        let xVals = List.map (fun e -> Int(eval e env)) eArgs
+        let fBodyEnv = List.zip x xVals
+        let fBodyEnvv = fBodyEnv @ (f, fClosure) :: fDeclEnv
+        eval fBody fBodyEnvv
+      | _ -> failwith "eval call: not a function"
+
     | Call _ -> failwith "eval Call: not first-order function"
 
 (* Evaluate in empty environment: program must have no free variables: *)
 
 let run e = eval e [];;
 
-(* Examples in abstract syntax *)
 
 let ex1 = Letfun("f1", "x", Prim("+", Var "x", CstI 1), 
-                 Call(Var "f1", CstI 12));;
+                  Call(Var "f1", CstI 12));;
 
 (* Example: factorial *)
 
