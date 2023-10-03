@@ -1,0 +1,3 @@
+In the third one, the result is as expected, as x is not a free variable in the addtwo function. Therefore, x=77 is irrelevant, as x is immediately bound to 2 afterwards.
+
+In the last one, it cannot evaluate to an integer as y is never defined and the result therefore in mathematical terms would be 2 + y.
