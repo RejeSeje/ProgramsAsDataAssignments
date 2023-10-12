@@ -1,0 +1,78 @@
+let f x = 1
+in f f end
+type: int
+
+let f g = g g
+in f end
+fails: circularity
+from "g g" we can tell g is a function which takes g as arg
+the typing of g is infinite:
+if (1st)g has type a->b then (2nd)g has type (a->b)->c which means the type
+of (1st)g has type a->b->c which means (2nd)g should be of type
+(a->b->c)->d and so on...
+
+let f x =
+  let g y = y
+  in g false end
+in f 42 end
+type: bool
+
+let f x =
+  let g y = if true then y else x
+  in g false end
+in f 42 end
+fails: bool and int
+y is a bool
+x is an int
+ill-typed function because it attempts to ret 2 different types
+
+let f x =
+  let g y = if true then y else x
+  in g false end
+in f true end
+type: bool
+
+Mico-ML programs:
+bool -> bool
+let f x =
+  if x = true then true else false
+in f end
+
+int -> int
+let f x =
+  if x = 1 then 1 else 2
+in f end
+
+
+int -> int -> int
+let f g =
+  g 1 + 1
+in f end
+
+'a -> 'b -> 'a
+let f x =
+  let g y = x
+  in g end
+in f end
+
+'a -> 'b -> 'b
+let f x =
+  let g y = y
+  in g end
+in f end
+
+('a -> 'b) -> ('b -> 'c) -> ('a -> 'c)
+let f x =
+  let g y =
+    let h z = y (x z)
+    in h end
+  in g end
+in f end
+
+'a -> 'b
+let f x = f x
+in f end
+
+'a
+let f x = f x
+in f 1 end
