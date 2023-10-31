@@ -1,0 +1,59 @@
+8.4
+(i)
+When comparing ex8 to the handwritten 20mil loop, it is clear that the
+bytecode instructions for ex8 are more bloated. Below I have written out the
+instructions for each function line for line:
+
+handwritten:
+(0 20000000) csti 20mil
+(16 7)goto 7 (less than)
+(0 1)csti 1
+(2)sub
+(9)dup
+(18)ifnzro
+(4)div
+(25)stop
+
+ex8:
+call 0, "l1"
+stop
+label "l1"
+incsp 1
+getbp
+(0 0) csti 0
+add
+csti 20mil
+sti 
+incsp -1
+goto "l3"
+label "l2"
+getbp
+csti 0
+add
+getbp
+csti 0
+add
+ldi
+csti 1
+sub
+sti
+incsp -1
+incsp 0
+label "l3"
+getbp
+csti 0
+add
+ldi
+ifnzro "l2"
+incsp -1
+ret -1
+
+(ii) - we understand this part of the exercise to be a brief
+explanation of how loops and conditionals work together in the bytecode
+generated:
+loops and conditionals works by utilizing labels.
+by jumping around to different bytecode instructions
+from conditional evaluations. a bit like:
+LDI; LT; IFNZRO "L2"
+is the effective part of the while loop, returning to L2
+unless the condition is not met.
