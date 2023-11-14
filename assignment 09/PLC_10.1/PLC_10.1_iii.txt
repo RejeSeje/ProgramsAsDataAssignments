@@ -1,0 +1,6 @@
+iii)
+
+The abstract machine calls the allocate() when executing code and hitting
+the CONS case.
+If there is not enough memory to allocate the allocate() calls the collect()
+which invokes the garbage collector. After this the allocate() is called again.

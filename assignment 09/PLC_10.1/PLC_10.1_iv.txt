@@ -1,0 +1,5 @@
+iv)
+
+In the situation of allocate() being called when there is not enough
+memory. Then the allocate() will call collect(), which invokes the garbage
+collector.

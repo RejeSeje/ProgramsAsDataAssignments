@@ -1,0 +1,32 @@
+i)
+
+ADD
+	Add sets the value of the index on the stack with value sp - 1 (the
+	next most upper element) to be the added value of the two top
+	elements. Effectively untagging the top element in the stack.
+	And decrementing the stack pointer in the process.
+CSTI
+	CSTI sets the stack index of sp + 1 to be the value of the next
+	program counte, and then increments the stack pointer, effectively
+	making the newly added integer the top element of the stack.
+NIL
+	NIL sets the stack index of sp + 1 to be 0 and then increments the
+	stack pointer.
+	CSTI 0 pushes the tagged integer 0 on to the stack while NIL pushes
+	a null pointer "0" on to the stack.
+IFZERO
+	IFZERO stores the value of the index sp - 1 on the stack in the
+	variable v. Then either executes program counter if v is either 
+	an integer == 0 or a null pointer, else it will skip the program
+	counter instruction and increment the program counter instead.
+CONS
+	CONS constructs a linked list of the two upper elements on the stack.
+	It does so by creating a pointer to a list, then popping the the two
+	elements and then pushing the list to the stack.
+CAR
+	CAR takes the first element in a list and pushes it on to the stack.
+	If this element is a null pointer it will print an error statement
+	and return -1.
+SETCAR
+	SETCAR takes the value of the next most upper element on the stack
+	and sets the value of the first element in list to this.

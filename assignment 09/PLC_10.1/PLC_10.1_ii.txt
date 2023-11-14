@@ -1,0 +1,16 @@
+ii)
+
+Lenght
+"hdr >> 2" shifts the 32 bit headers block 2 bits effectively discarding the two right
+most bits, the gg part. and then selects last 22 bits by applying the AND
+operation with the hexidecimal number 0x003FFFFF which translates to the
+binary 000000001111111111111111111111.
+
+Color
+"hdr & 3" selects the last 2 bits by applying the AND operation with the
+decimal value 3 which corresponds to the binary representation
+00000000000000000000000000000011.
+
+Paint
+"hdr & -3" clears the last 2 bits (sets them to 00).
+and then sets the last 2 bits to the bitvalue of color. 
